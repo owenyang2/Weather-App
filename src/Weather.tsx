@@ -1,4 +1,5 @@
 import { fetchWeatherApi } from 'openmeteo';
+import { useState, useEffect } from 'react';
 
 let LOCATIONS: {[location: string]: {[key: string]: number;}} = {
 	Toronto: {
@@ -12,17 +13,14 @@ let LOCATIONS: {[location: string]: {[key: string]: number;}} = {
 	},
 }
 
-let currLocation = "Toronto";
-let weatherData = {};
-
-function updateWeather() {
-	if (!(currLocation in LOCATIONS)) {
-		return;
+async function updateWeather(location: string) {
+	if (!(location in LOCATIONS)) {
+		return null;
 	}
 
 	const params = {
-		"latitude": LOCATIONS[currLocation].latitude,
-		"longitude": LOCATIONS[currLocation].longitude,
+		"latitude": LOCATIONS[location].latitude,
+		"longitude": LOCATIONS[location].longitude,
 		"daily": ["temperature_2m_max", "temperature_2m_min"],
 		"timezone": "America/New_York",
 		"forecast_days": 1
@@ -39,16 +37,28 @@ function updateWeather() {
 }
 
 function Weather() {
-	const weatherData = updateWeather();
-
-	console.log("uh");
+	let currLocation = "Toronto";
+	const [weatherData, setWeatherData] = useState<{ tempMax: number; tempMin: number } | null>(null);
+  
+	useEffect(() => {
+		updateWeather(currLocation).then((data) => {
+		if (data) setWeatherData(data);
+	  });
+	}, []);
+  
 	return (
-		<div className="centered">
-			<h1>Waterloo</h1>
-			<p>High: {Math.round(weatherData!.tempMax)}°</p>
-			<p>Low: {Math.round(weatherData!.tempMin)}°</p>
-		</div>
-	)
-}
-
+	  <div className="centered">
+		<h1>{currLocation}</h1>
+		{weatherData ? (
+		  <>
+			<p>High: {Math.round(weatherData.tempMax)}°</p>
+			<p>Low: {Math.round(weatherData.tempMin)}°</p>
+		  </>
+		) : (
+		  <p>Loading...</p>
+		)}
+	  </div>
+	);
+  }
+  
 export default Weather;
