@@ -1,9 +1,18 @@
 #root {
-  margin: 0 auto;
-  padding: 2rem;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the top */
+  padding-top: 40vh;       /* Push down about 40% of the viewport height */
   text-align: center;
 }
 
 p {
-  font-size: large;
+  font-size: larger;
 }
+
+/*
+* {
+  border: 1px solid black;
+}
+*/

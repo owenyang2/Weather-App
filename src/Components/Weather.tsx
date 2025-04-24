@@ -1,6 +1,8 @@
 import { fetchWeatherApi } from 'openmeteo';
 import { useState, useEffect } from 'react';
 
+import './Weather.css'
+
 let LOCATIONS: {[location: string]: {[key: string]: number;}} = {
 	Toronto: {
 		"latitude": 43.6532,
@@ -42,17 +44,26 @@ function Weather() {
   
 	useEffect(() => {
 		updateWeather(currLocation).then((data) => {
-		if (data) setWeatherData(data);
+		if (data) {
+			setWeatherData(data)
+		}
 	  });
 	}, []);
   
 	return (
 	  <div className="centered">
-		<h1>{currLocation}</h1>
 		{weatherData ? (
 		  <>
+		  <div className="weather-display">
+			<h1 className="weather-title">{currLocation}</h1>
 			<p>High: {Math.round(weatherData.tempMax)}°</p>
 			<p>Low: {Math.round(weatherData.tempMin)}°</p>
+		  </div>
+		  <div className="location-switch">
+		  	{Object.keys(LOCATIONS).map((location: string) =>
+				<button className="btn btn-primary">{location}</button>
+			)}
+		  </div>
 		  </>
 		) : (
 		  <p>Loading...</p>

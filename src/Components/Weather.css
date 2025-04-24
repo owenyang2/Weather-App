@@ -1,0 +1,11 @@
+.btn-primary {
+    margin: 0 10px 0 10px;
+}
+
+.weather-display {
+    margin-bottom: 1em;
+    padding: 1em;
+    
+    border: 2px solid rgb(0, 89, 255);
+    border-radius: 5%;
+}
