@@ -1,9 +1,12 @@
 #root {
   height: 100vh;
+}
+
+.main-content {
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Align items at the top */
-  padding-top: 40vh;       /* Push down about 40% of the viewport height */
+  padding-top: 30vh;       /* Push down about 40% of the viewport height */
   text-align: center;
 }
 
