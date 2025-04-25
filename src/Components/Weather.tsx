@@ -13,6 +13,11 @@ let LOCATIONS: {[location: string]: {[key: string]: number;}} = {
 		"latitude": 43.4668,
 		"longitude": -80.5164
 	},
+
+	Ottawa: {
+		"latitude": 45.4201,
+		"longitude": 75.7003
+	}
 }
 
 async function updateWeather(location: string) {
@@ -39,17 +44,15 @@ async function updateWeather(location: string) {
 }
 
 function Weather() {
-	let currLocation = "Toronto";
+	const [currLocation, setCurrLocation] = useState('Toronto');
 	const [weatherData, setWeatherData] = useState<{ tempMax: number; tempMin: number } | null>(null);
-  
+
 	useEffect(() => {
-		updateWeather(currLocation).then((data) => {
-		if (data) {
-			setWeatherData(data)
-		}
+	  updateWeather(currLocation).then((data) => {
+		if (data) setWeatherData(data);
 	  });
-	}, []);
-  
+	}, [currLocation]); // rerun when currLocation changes  
+
 	return (
 	  <div className="centered">
 		{weatherData ? (
@@ -61,7 +64,7 @@ function Weather() {
 		  </div>
 		  <div className="location-switch">
 		  	{Object.keys(LOCATIONS).map((location: string) =>
-				<button className="btn btn-primary">{location}</button>
+				<button className="btn btn-primary" onClick={() => {setCurrLocation(location)}}>{location}</button>
 			)}
 		  </div>
 		  </>
