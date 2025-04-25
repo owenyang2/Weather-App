@@ -44,7 +44,7 @@ async function updateWeather(location: string) {
 }
 
 function Weather() {
-	const [currLocation, setCurrLocation] = useState('Toronto');
+	const [currLocation, setCurrLocation] = useState(Object.keys(LOCATIONS)[0]);
 	const [weatherData, setWeatherData] = useState<{ tempMax: number; tempMin: number } | null>(null);
 
 	useEffect(() => {
@@ -73,6 +73,6 @@ function Weather() {
 		)}
 	  </div>
 	);
-  }
+}
   
 export default Weather;
