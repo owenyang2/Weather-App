@@ -64,7 +64,7 @@ function Weather() {
 		  </div>
 		  <div className="location-switch">
 		  	{Object.keys(LOCATIONS).map((location: string) =>
-				<button className="btn btn-primary" onClick={() => {setCurrLocation(location)}}>{location}</button>
+				<button className="btn btn-primary" key={location} onClick={() => {setCurrLocation(location)}}>{location}</button>
 			)}
 		  </div>
 		  </>
