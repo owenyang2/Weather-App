@@ -9,3 +9,7 @@
     border: 2px solid rgb(0, 89, 255);
     border-radius: 5%;
 }
+
+.centered {
+    width: 15%;
+}
